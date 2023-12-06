@@ -11,6 +11,8 @@ public class Bola : MonoBehaviour
     private Rigidbody2D rb;
     public int velocidade = 5;
     public Vector2 direcao;
+    public Vector2 velocidadeJogador;
+    
     void Start()
     {
         TryGetComponent(out rb);
@@ -20,12 +22,21 @@ public class Bola : MonoBehaviour
     private void OnCollisionEnter2D(Collision2D collision)
     {
         direcao = Vector2.Reflect(direcao, collision.contacts[0].normal);
+        if (collision.gameObject.CompareTag("Bloquinho"))
+        {
+            Destroy(collision.gameObject);
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
         
+        
+    }
+
+    private void FixedUpdate()
+    {
         rb.velocity = direcao.normalized * velocidade;
     }
 }

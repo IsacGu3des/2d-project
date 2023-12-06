@@ -1,14 +1,17 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class Jogador : MonoBehaviour
 {
     // Start is called before the first frame update
     private Rigidbody2D rb;
     public int velocidade = 5;
+    private Vector2 direcao;
     void Start()
     {
+        
         TryGetComponent(out rb);
     }
 
@@ -16,13 +19,11 @@ public class Player : MonoBehaviour
     void Update()
     {
         float x = Input.GetAxisRaw("Horizontal");
-        float y = Input.GetAxisRaw("Vertical");
+        direcao = new Vector2(x, 0);
+    }
 
-        
-        
-
-        Vector2 direcao = new Vector2(x, y);
-
+    void FixedUpdate()
+    {
         rb.velocity = direcao.normalized * velocidade;
     }
 }
