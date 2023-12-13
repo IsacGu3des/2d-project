@@ -26,6 +26,11 @@ public class Bola : MonoBehaviour
         {
             Destroy(collision.gameObject);
         }
+        if (collision.gameObject.CompareTag("Parede"))
+        {
+            GameManager.instance.GameOver();
+            Destroy(this.gameObject);
+        }
     }
 
     // Update is called once per frame
