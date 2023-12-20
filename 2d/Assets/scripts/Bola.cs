@@ -17,14 +17,33 @@ public class Bola : MonoBehaviour
     {
         TryGetComponent(out rb);
         direcao = Random.insideUnitCircle.normalized;
+        direcao = new Vector2(direcao.x,1);
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        direcao = Vector2.Reflect(direcao, collision.contacts[0].normal);
+        
+        if (collision.contacts.Length == 1)
+        {
+            direcao = Vector2.Reflect(direcao, collision.contacts[0].normal);
+        }
+        else
+        {
+            Vector2 normalMedia = Vector2.zero;
+            foreach (var ponto in collision.contacts)
+            {
+                normalMedia = (direcao + ponto.normal) / 2;
+            }
+        }
         if (collision.gameObject.CompareTag("Bloquinho"))
         {
             Destroy(collision.gameObject);
+        }
+
+        if (collision.gameObject.CompareTag("Blocão"))
+        {
+            collision.gameObject.GetComponent<BlocoFoda>().TomouHit();
+            
         }
         if (collision.gameObject.CompareTag("Parede"))
         {

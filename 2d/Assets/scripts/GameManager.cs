@@ -17,9 +17,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-        
+
         Invoke("Fase", 5);
-        Cabou.text = "Se Fudeu";
 
     }
     void Fase()
